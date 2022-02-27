@@ -9,8 +9,9 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -28,12 +29,31 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+// import {realm} from './src/storage/Realm';
+import Realm from 'realm';
+import moment from 'moment';
+import Video, {realm} from './src/storage/Models/ExampleModel';
+import {newGuid} from './src/utils/GUID';
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const {UUID} = Realm.BSON;
+
+  const writeData = () => {
+    realm.write(() => {
+      let video = new Video(new UUID(), 'bar', new Date());
+      realm.create(Video.schema.name, video);
+    });
+  };
+
+  const videos = realm.objects(Video.schema.name);
+  // const video: Video = JSON.parse(v.toJSON());
+  // return <Text>{video.youtubeID}</Text>})}
+
   return (
     <NavigationContainer>
       <SafeAreaView style={backgroundStyle}>
@@ -45,7 +65,14 @@ const App = () => {
           <View
             style={{
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}></View>
+            }}>
+            <Button title="write" onPress={writeData} />
+            {/* {console.warn(videos)} */}
+            {videos.map(v => {
+              const video = v.toJSON() as Video;
+              return <Text>{video.youtubeID.toHexString()}</Text>
+            })}
+          </View>
         </ScrollView>
       </SafeAreaView>
     </NavigationContainer>
