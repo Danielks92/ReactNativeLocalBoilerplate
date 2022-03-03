@@ -4,7 +4,7 @@ import ExampleModel from './Models/ExampleModel';
 
 export const realm = new Realm({
   path: 'UserDatabase.realm',
-  schema: [ExampleModel],
+  schema: [ExampleModel.schema],
 });
 
 // export const realm = Realm.open({

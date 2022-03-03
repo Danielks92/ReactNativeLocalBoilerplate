@@ -1,0 +1,16 @@
+{
+  "helloWorld": "Hallo Welt!",
+  "gender": {
+    "male": "Mann",
+    "female": "Frau",
+    "other": "Andere"
+  },
+  "addPerson": {
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "shortName": "Spitzname",
+    "birthday": "Geburtsdatum",
+    "genderPickerLabel": "Geschlecht wählen",
+    "add": "Person hinzufügen",
+  }
+}

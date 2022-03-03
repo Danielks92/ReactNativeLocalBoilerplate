@@ -32,11 +32,16 @@ import {
 // import {realm} from './src/storage/Realm';
 import Realm from 'realm';
 import moment from 'moment';
-import Video, {realm} from './src/storage/Models/ExampleModel';
+import Video from './src/storage/Models/ExampleModel';
+import {realm} from './src/storage/Realm'
 import {newGuid} from './src/utils/GUID';
+import {Provider, useDispatch} from 'react-redux';
+import {store} from './src/Redux/store';
+import {init as initI18n, translate} from './src/I18n';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  initI18n();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -55,6 +60,7 @@ const App = () => {
   // return <Text>{video.youtubeID}</Text>})}
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <SafeAreaView style={backgroundStyle}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -76,6 +82,7 @@ const App = () => {
         </ScrollView>
       </SafeAreaView>
     </NavigationContainer>
+    </Provider>
   );
 };
 
