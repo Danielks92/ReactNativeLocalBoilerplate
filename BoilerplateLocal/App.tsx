@@ -38,6 +38,8 @@ import {newGuid} from './src/utils/GUID';
 import {Provider, useDispatch} from 'react-redux';
 import {store} from './src/Redux/store';
 import {init as initI18n, translate} from './src/I18n';
+import {writeToDatabase} from './src/services/ExampleService'
+import Startpage from './src/Components/Startpage';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -67,17 +69,21 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}>
-          <Header />
+          <Startpage />
           <View
             style={{
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
             }}>
-            <Button title="write" onPress={writeData} />
+            <Button title="write" onPress={writeToDatabase} />
             {/* {console.warn(videos)} */}
             {videos.map(v => {
               const video = v.toJSON() as Video;
-              return <Text>{video.youtubeID.toHexString()}</Text>
-            })}
+              return (
+              <View>
+                <Text>{video.youtubeID.toHexString()}</Text>
+                <Text>{video.title}</Text>
+              </View>
+            )})}
           </View>
         </ScrollView>
       </SafeAreaView>

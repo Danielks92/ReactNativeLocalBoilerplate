@@ -28,6 +28,7 @@ export const init = () => {
     
   }
   
+  
   // update layout direction
   I18nManager.forceRTL(isRTL);
 
